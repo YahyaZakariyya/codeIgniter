@@ -7,8 +7,8 @@ class Admin_model extends CI_model {
 
     public function select_users()
     {
-        $this->db->select('user_id,user_name,user_email,first_name,last_name,gender,user_type');
-        $sql = $this->db->get('users');
+        $query = "SELECT u.user_id, u.user_name, u.user_email, u.first_name, u.last_name, u.gender, ur.user_role FROM users u JOIN user_role ur ON u.user_type=ur.user_role_id";
+        $sql = $this->db->query($query);
         $result = $sql->result_array();
         return $result;
     }
@@ -69,17 +69,32 @@ class Admin_model extends CI_model {
         
     }
 
+    public function add_user_select()
+    {
+        $arr = ['user_name','user_email','first_name','last_name','user_password','gender','user_type'];
+        return $arr;
+    }
+
+    // Add functions
+
+    public function add_user()
+    {
+        $query = "INSERT INTO users (user_name,user_email,first_name,last_name,user_password,gender,user_type) VALUES ('{$this->input->post('user_name')}','{$this->input->post('user_email')}','{$this->input->post('first_name')}','{$this->input->post('last_name')}','{$this->input->post('user_password')}','{$this->input->post('gender')}',{$this->input->post('user_type')})";
+        $this->db->query($query);
+        header("Location: http://localhost/NSSC/index.php/admin");
+    }
+
     // Update functions
 
     public function update_user($user_id)
     {
         // email or username check query
-        $check_sql = "SELECT user_name, user_email FROM users WHERE (user_name = '{$this->input->post('user_name')}' OR user_email='{$this->input->post('user_email')}') AND NOT user_id=$user_id";
-        $check_result = $this->db->query($check_sql);
-        $chk_result = $check_result->result_array();
-        if(empty($chk_result)){
+        $check_query = "SELECT user_name, user_email FROM users WHERE (user_name = '{$this->input->post('user_name')}' OR user_email='{$this->input->post('user_email')}') AND NOT user_id=$user_id";
+        $check_sql = $this->db->query($check_query);
+        $check_result = $check_sql->result_array();
+        if(empty($check_result)){
             // update record query
-            $update_sql = "UPDATE users SET user_name='{$this->input->post('user_name')}', user_email='{$this->input->post('user_email')}', first_name='{$this->input->post('first_name')}', last_name='{$this->input->post('last_name')}', gender='{$this->input->post('gender')}', user_type='{$this->input->post('user_type')}' WHERE user_id={$user_id}";
+            $update_query = "UPDATE users SET user_name='{$this->input->post('user_name')}', user_email='{$this->input->post('user_email')}', first_name='{$this->input->post('first_name')}', last_name='{$this->input->post('last_name')}', gender='{$this->input->post('gender')}', user_type='{$this->input->post('user_type')}' WHERE user_id={$user_id}";
             $this->db->query($update_sql);
             header('Location: http://localhost/NSSC/index.php/admin');
         }
@@ -91,8 +106,8 @@ class Admin_model extends CI_model {
 
     public function update_course($course_id)
     {
-        $sql = "UPDATE course SET course_name='{$this->input->post('course_name')}' WHERE course_id=$course_id";
-        $this->db->query($sql);
+        $query = "UPDATE course SET course_name='{$this->input->post('course_name')}' WHERE course_id=$course_id";
+        $this->db->query($squery);
         header('Location: http://localhost/NSSC/index.php/admin/view_courses');
     }
 

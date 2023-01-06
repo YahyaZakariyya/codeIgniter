@@ -6,11 +6,11 @@
     </div>
     <?php if($heading == 'USERS' or $heading == 'COURSES'){ ?>
     <div class="col-auto align-self-center">
-        <button class="btn btn-dark">Add <?php echo $heading ?></button>
+        <a class="btn btn-dark" href="http://localhost/NSSC/index.php/admin/add?user_id">Add <?php echo $heading ?></a>
     </div>
     <?php } ?>
 </div>
-<table class="table border-clr-5 my-3 text-center">
+<table class="table border-clr-5 my-3 text-center table-hover">
 <?php if(!empty($table)){ ?>
 <thead class="bg-info">
     <tr>

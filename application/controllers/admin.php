@@ -70,6 +70,26 @@ class Admin extends CI_Controller {
         $this->admin_model->update_course($course_id);
     }
 
+    public function add()
+    {
+        $this->load->model('admin_model');
+        if($this->input->get('user_id')!==NULL){
+            $this->admin_model->add_user_select();
+            $result['form'] = $this->admin_model->add_user_select();
+            $result['type'] = 'add_user';
+        }elseif($this->input->get('course_id')!==NULL){
+            $this->admin_model->add_course();
+            $result['type'] = 'add_course';
+        }
+        $this->load->view('admin/add',$result);
+    }
+
+    public function add_user()
+    {
+        $this->load->model('admin_model');
+        $this->admin_model->add_user();
+    }
+
     public function delete()
     {
         $this->load->model('admin_model');
@@ -87,5 +107,4 @@ class Admin extends CI_Controller {
             header("Location: http://localhost/NSSC/index.php/admin/view_queries");
         }
     }
-
 }
