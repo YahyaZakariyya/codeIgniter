@@ -4,9 +4,9 @@
     <div class="col-auto">
         <h1><?php echo $heading; ?></h1>
     </div>
-    <?php if($heading == 'USERS'){ ?>
+    <?php if($heading == 'USERS' or $heading == 'COURSES'){ ?>
     <div class="col-auto align-self-center">
-        <button class="btn btn-dark">Add User</button>
+        <button class="btn btn-dark">Add <?php echo $heading ?></button>
     </div>
     <?php } ?>
 </div>
@@ -33,7 +33,7 @@
         
     ?>
         <td><a href="<?php echo 'http://localhost/NSSC/index.php/admin/update?'.http_build_query([key($rows) => reset($rows)]); ?>"><i class="fa-sharp fa-solid fa-pen-to-square"></i></a></td>
-        <td><a href="<?php echo http_build_query([key($rows) => reset($rows)]) ?>"><i class="fa-sharp fa-solid fa-trash"></i></a></td=>
+        <td><a href="<?php echo 'http://localhost/NSSC/index.php/admin/delete?'.http_build_query([key($rows) => reset($rows)]); ?>"><i class="fa-sharp fa-solid fa-trash"></i></a></td=>
     <?php
         echo "</tr>";
     }

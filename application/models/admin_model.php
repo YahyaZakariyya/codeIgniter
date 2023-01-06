@@ -2,8 +2,12 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Admin_model extends CI_model {
+
+    // Read or Select Functions
+
     public function select_users()
     {
+        $this->db->select('user_id,user_name,user_email,first_name,last_name,gender,user_type');
         $sql = $this->db->get('users');
         $result = $sql->result_array();
         return $result;
@@ -54,13 +58,18 @@ class Admin_model extends CI_model {
 
     public function update_course_select()
     {
-
+        $this->db->select('course_name');
+        $sql = $this->db->get('course');
+        $result = $sql->result_array();
+        return $result;
     }
 
     public function update_query_select()
     {
         
     }
+
+    // Update functions
 
     public function update_user($user_id)
     {
@@ -78,5 +87,39 @@ class Admin_model extends CI_model {
             // printing an error message missing
             header('Location: http://localhost/NSSC/index.php/admin/update?user_id='.$user_id);
         }
+    }
+
+    public function update_course($course_id)
+    {
+        $sql = "UPDATE course SET course_name='{$this->input->post('course_name')}' WHERE course_id=$course_id";
+        $this->db->query($sql);
+        header('Location: http://localhost/NSSC/index.php/admin/view_courses');
+    }
+
+    // Delete Functions
+
+    public function delete_user($user_id)
+    {
+        // other delete queries remaining to  apply
+        $delete_query = "DELETE FROM users WHERE user_id = $user_id";
+        $this->db->query($delete_query);
+        return;
+    }
+
+    public function delete_notes($notes_id)
+    {
+        // other delete queries remaining to apply
+        $delete_query = "DELETE FROM notes WHERE notes_id = $notes_id";
+        $this->db->query($delete_query);
+    }
+
+    public function delete_course()
+    {
+
+    }
+
+    public function delete_query()
+    {
+
     }
 }

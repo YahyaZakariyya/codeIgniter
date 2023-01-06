@@ -63,4 +63,29 @@ class Admin extends CI_Controller {
         $this->load->model('admin_model');
         $this->admin_model->update_user($user_id);
     }
+
+    public function update_course($course_id)
+    {
+        $this->load->model('admin_model');
+        $this->admin_model->update_course($course_id);
+    }
+
+    public function delete()
+    {
+        $this->load->model('admin_model');
+        if($this->input->get('user_id')!==NULL){
+            $result['form'] = $this->admin_model->delete_user($this->input->get('user_id'));
+            header("Location: http://localhost/NSSC/index.php/admin");
+        }elseif($this->input->get('notes_id')!==NULL){
+            $result['form'] = $this->admin_model->delete_notes($this->input->get('notes_id'));
+            header("Location: http://localhost/NSSC/index.php/admin/view_notes");
+        }elseif($this->input->get('course_id')!==NULL){
+            $result['form'] = $this->admin_model->delete_course();
+            header("Location: http://localhost/NSSC/index.php/admin/view_courses");
+        }elseif($this->input->get('id')!==NULL){
+            $result['form'] = $this->admin_model->delete_query();
+            header("Location: http://localhost/NSSC/index.php/admin/view_queries");
+        }
+    }
+
 }
