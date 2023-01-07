@@ -6,7 +6,7 @@
     </div>
     <?php if($heading == 'USERS' or $heading == 'COURSES'){ ?>
     <div class="col-auto align-self-center">
-        <a class="btn btn-dark" href="http://localhost/NSSC/index.php/admin/add?user_id">Add <?php echo $heading ?></a>
+        <a class="btn btn-dark" href="http://localhost/NSSC/index.php/admin/add?<?php if($heading=='USERS'){echo 'user_id';}else{echo 'course_id';} ?>">Add <?php echo $heading ?></a>
     </div>
     <?php } ?>
 </div>
@@ -30,7 +30,6 @@
         foreach($rows as $cell){
             echo "<td>{$cell}</td>";
         }
-        
     ?>
         <td><a href="<?php echo 'http://localhost/NSSC/index.php/admin/update?'.http_build_query([key($rows) => reset($rows)]); ?>"><i class="fa-sharp fa-solid fa-pen-to-square"></i></a></td>
         <td><a href="<?php echo 'http://localhost/NSSC/index.php/admin/delete?'.http_build_query([key($rows) => reset($rows)]); ?>"><i class="fa-sharp fa-solid fa-trash"></i></a></td=>

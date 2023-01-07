@@ -78,7 +78,8 @@ class Admin extends CI_Controller {
             $result['form'] = $this->admin_model->add_user_select();
             $result['type'] = 'add_user';
         }elseif($this->input->get('course_id')!==NULL){
-            $this->admin_model->add_course();
+            $this->admin_model->add_course_select();
+            $result['form'] = $this->admin_model->add_course_select();
             $result['type'] = 'add_course';
         }
         $this->load->view('admin/add',$result);
@@ -88,6 +89,12 @@ class Admin extends CI_Controller {
     {
         $this->load->model('admin_model');
         $this->admin_model->add_user();
+    }
+
+    public function add_course()
+    {
+        $this->load->model('admin_model');
+        $this->admin_model->add_course();
     }
 
     public function delete()
@@ -100,10 +107,10 @@ class Admin extends CI_Controller {
             $result['form'] = $this->admin_model->delete_notes($this->input->get('notes_id'));
             header("Location: http://localhost/NSSC/index.php/admin/view_notes");
         }elseif($this->input->get('course_id')!==NULL){
-            $result['form'] = $this->admin_model->delete_course();
+            $result['form'] = $this->admin_model->delete_course($this->input->get('course_id'));
             header("Location: http://localhost/NSSC/index.php/admin/view_courses");
         }elseif($this->input->get('id')!==NULL){
-            $result['form'] = $this->admin_model->delete_query();
+            $result['form'] = $this->admin_model->delete_query($this->input->get('id'));
             header("Location: http://localhost/NSSC/index.php/admin/view_queries");
         }
     }
