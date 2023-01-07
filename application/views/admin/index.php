@@ -19,8 +19,10 @@
         foreach ($colums as $values){
             echo "<th>{$values}</th>";
         }
+        if($heading == 'USERS' or $heading == 'COURSES'){
         ?>
         <th>EDIT</th>
+        <?php } ?>
         <th>DELETE</th>
     </tr>
 </thead>
@@ -30,8 +32,10 @@
         foreach($rows as $cell){
             echo "<td>{$cell}</td>";
         }
+        if($heading == 'USERS' or $heading == 'COURSES'){
     ?>
         <td><a href="<?php echo 'http://localhost/NSSC/index.php/admin/update?'.http_build_query([key($rows) => reset($rows)]); ?>"><i class="fa-sharp fa-solid fa-pen-to-square"></i></a></td>
+    <?php } ?>
         <td><a href="<?php echo 'http://localhost/NSSC/index.php/admin/delete?'.http_build_query([key($rows) => reset($rows)]); ?>"><i class="fa-sharp fa-solid fa-trash"></i></a></td=>
     <?php
         echo "</tr>";

@@ -1,0 +1,5 @@
+CREATE VIEW select_notes AS SELECT n.notes_id,n.notes_title,n.notes_description,c.course_name,u.user_name,n.notes_file,n.upload_date FROM notes n JOIN course c ON n.course=c.course_id JOIN users u ON n.author=u.user_id;
+
+CREATE VIEW select_users AS SELECT u.user_id, u.user_name, u.user_email, u.first_name, u.last_name, u.gender, ur.user_role FROM users u JOIN user_role ur ON u.user_type=ur.user_role_id;
+
+CREATE VIEW select_queries AS SELECT q.query_id, q.query, u.user_name, c.course_name FROM queries q JOIN users u ON q.inquirer=u.user_id JOIN course c ON q.course=c.course_id;

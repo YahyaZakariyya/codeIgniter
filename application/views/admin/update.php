@@ -7,9 +7,9 @@
     <?php foreach($form as $data){
         foreach($data as $key => $value){
     ?>
-    <div class="mb-2">
-        <label for="<?php echo $key; ?>" class="form-label"><?php echo $key; ?></label>
-        <input type="text" name="<?php echo $key ?>" id="first_name" class="form-control" value="<?php echo $value; ?>"/>
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="<?php echo $key; ?>" value="<?php echo $value; ?>">
+        <label for="<?php echo $key; ?>"><?php echo $key; ?></label>
     </div>
     <?php }} ?>
     <button class="btn btn-dark" type="submit">Update</button>

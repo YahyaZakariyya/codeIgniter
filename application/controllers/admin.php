@@ -3,6 +3,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Admin extends CI_Controller {
 	
+    // Simple view Controllers
+
+    // users page view
     public function index()
 	{
         $this->load->model('admin_model');
@@ -11,6 +14,7 @@ class Admin extends CI_Controller {
 		$this->load->view('admin/index',$result);
 	}
 
+    // notes page view
     public function view_notes()
     {
         $this->load->model('admin_model');
@@ -19,6 +23,7 @@ class Admin extends CI_Controller {
 		$this->load->view('admin/index',$result);
     }
 
+    // queries page view
     public function view_queries()
     {
         $this->load->model('admin_model');
@@ -27,6 +32,7 @@ class Admin extends CI_Controller {
 		$this->load->view('admin/index',$result);
     }
 
+    // courses page view
     public function view_courses()
     {
         $this->load->model('admin_model');
@@ -35,6 +41,7 @@ class Admin extends CI_Controller {
 		$this->load->view('admin/index',$result);
     }
 
+    // update page view
     public function update()
     {
         $this->load->model('admin_model');
@@ -42,61 +49,56 @@ class Admin extends CI_Controller {
             $result['form'] = $this->admin_model->update_user_select();
             $result['type'] = 'update_user';
             $result['id'] = $this->input->get('user_id');
-        }elseif($this->input->get('notes_id')!==NULL){
-            $result['form'] = $this->admin_model->update_notes_select();
-            $result['type'] = 'update_notes';
-            $result['id'] = $this->input->get('notes_id');
         }elseif($this->input->get('course_id')!==NULL){
             $result['form'] = $this->admin_model->update_course_select();
             $result['type'] = 'update_course';
             $result['id'] = $this->input->get('course_id');
-        }elseif($this->input->get('id')!==NULL){
-            $result['form'] = $this->admin_model->update_query_select();
-            $result['type'] = 'update_query';
-            $result['id'] = $this->input->get('query_id');
         }
         $this->load->view('admin/update',$result);
     }
 
+    // update_user data from view to model
     public function update_user($user_id)
     {
         $this->load->model('admin_model');
         $this->admin_model->update_user($user_id);
     }
 
+    // update_course data from view to model
     public function update_course($course_id)
     {
         $this->load->model('admin_model');
         $this->admin_model->update_course($course_id);
     }
 
+    // add page view
     public function add()
     {
-        $this->load->model('admin_model');
         if($this->input->get('user_id')!==NULL){
-            $this->admin_model->add_user_select();
-            $result['form'] = $this->admin_model->add_user_select();
-            $result['type'] = 'add_user';
+            $array['form'] = ['user_name','user_email','first_name','last_name','user_password','gender','user_type'];
+            $array['type'] = 'add_user';
         }elseif($this->input->get('course_id')!==NULL){
-            $this->admin_model->add_course_select();
-            $result['form'] = $this->admin_model->add_course_select();
-            $result['type'] = 'add_course';
+            $array['form'] = ['course_name'];
+            $array['type'] = 'add_course';
         }
-        $this->load->view('admin/add',$result);
+        $this->load->view('admin/add',$array);
     }
 
+    // add_user data form view to model
     public function add_user()
     {
         $this->load->model('admin_model');
         $this->admin_model->add_user();
     }
 
+    // add_course data form view to model
     public function add_course()
     {
         $this->load->model('admin_model');
         $this->admin_model->add_course();
     }
 
+    // delete data
     public function delete()
     {
         $this->load->model('admin_model');
