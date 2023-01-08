@@ -112,6 +112,7 @@ class Admin_model extends CI_model {
     public function update_course($course_id)
     {
         $query = "UPDATE courses SET course_name='{$this->input->post('course_name')}' WHERE course_id=$course_id";
+        echo $query;
         $this->db->query($query);
         header('Location: http://localhost/NSSC/index.php/admin/view_courses');
     }

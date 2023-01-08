@@ -10,14 +10,12 @@ class Admin extends CI_Controller {
 	{
         if(isset($_SESSION['user_name']))
         {
-            echo 'session set';
             $result['table'] = $this->admin_model->select_users();
             $result['heading']='USERS';
             $this->load->view('admin/index',$result);
         }
         else
         {
-            echo 'session not set';
             $this->load->view('admin/login');
         }
 	}
@@ -38,6 +36,12 @@ class Admin extends CI_Controller {
         {
             header('Location: http://localhost/NSSC/index.php/admin?invalid');
         }
+    }
+
+    public function logout()
+    {
+        $this->session->sess_destroy();
+        header('Location: http://localhost/NSSC/index.php/admin');    
     }
 
     // notes page view

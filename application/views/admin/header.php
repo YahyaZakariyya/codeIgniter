@@ -1,3 +1,9 @@
+<?php
+if(!isset($_SESSION['user_name']))
+{
+    header('Location: http://localhost/NSSC/index.php/admin');    
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +21,7 @@
         <nav class="navbar navbar-expand">
             <div class="container-fluid">
                 <!-- Brand Logo -->
-                <a class="navbar-brand" href="#">NSSC</a>
+                <a class="navbar-brand" href="http://localhost/NSSC/index.php/admin">ADMIN NSSC</a>
                 <!-- Nav Links -->
                 <div class="">
                     <ul class="navbar-nav">
@@ -34,7 +40,7 @@
                     </ul>
                 </div>
                 <!-- Logout Button -->
-                <button class="btn btn-dark">LOGOUT</button>
+                <a class="btn btn-dark" href="http://localhost/NSSC/index.php/admin/logout">LOGOUT</a>
             </div>
         </nav>
         <div class="bg-dark" style="height: 20px;"></div>
