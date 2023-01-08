@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 08, 2023 at 03:20 PM
+-- Generation Time: Jan 08, 2023 at 04:42 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -202,8 +202,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `user_name`, `user_email`, `user_password`, `first_name`, `last_name`, `gender`, `profile_image`, `user_type`) VALUES
-(1, 'Yahya_Zakariyya', 'yahyabinzakariyya@gmail.com', 'Lahore1234', 'Yahya', 'Zakariyya', 'm', '', 1),
-(2, 'yahya_z', '29529@students.riphah.edu.pk', 'Family13579.', 'Yahya', '.', 'm', '', 2);
+(1, 'Yahya_Zakariyya', 'yahyabinzakariyya@gmail.com', 'admin', 'Yahya', 'Zakariyya', 'm', '', 1),
+(2, 'yahya_z', '29529@students.riphah.edu.pk', '112233', 'Yahya', '.', 'm', '', 2);
 
 -- --------------------------------------------------------
 
