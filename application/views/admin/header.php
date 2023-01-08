@@ -19,7 +19,7 @@ if(!isset($_SESSION['user_name']))
     <header class="bg-info sticky-top">
         <!-- Navbar -->
         <nav class="navbar navbar-expand">
-            <div class="container-fluid">
+            <div class="container-xxl">
                 <!-- Brand Logo -->
                 <a class="navbar-brand" href="http://localhost/NSSC/index.php/admin">ADMIN NSSC</a>
                 <!-- Nav Links -->

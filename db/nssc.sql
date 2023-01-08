@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 08, 2023 at 12:58 PM
+-- Generation Time: Jan 08, 2023 at 03:20 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -42,7 +42,7 @@ CREATE TABLE `comments` (
 
 CREATE TABLE `courses` (
   `course_id` int(11) NOT NULL,
-  `course_name` varchar(20) NOT NULL
+  `course_name` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -50,7 +50,10 @@ CREATE TABLE `courses` (
 --
 
 INSERT INTO `courses` (`course_id`, `course_name`) VALUES
-(1, 'Database Systems');
+(1, 'Database Systems'),
+(2, 'Web Programming'),
+(3, 'Object Oriented Programming'),
+(4, 'Data Structures & Algorithms');
 
 -- --------------------------------------------------------
 
@@ -141,7 +144,7 @@ CREATE TABLE `select_notes` (
 `notes_id` int(11)
 ,`notes_title` varchar(100)
 ,`notes_description` varchar(500)
-,`course_name` varchar(20)
+,`course_name` varchar(50)
 ,`user_name` varchar(30)
 ,`notes_file` text
 ,`upload_date` date
@@ -157,7 +160,7 @@ CREATE TABLE `select_queries` (
 `query_id` int(11)
 ,`query` text
 ,`user_name` varchar(30)
-,`course_name` varchar(20)
+,`course_name` varchar(50)
 );
 
 -- --------------------------------------------------------
@@ -199,7 +202,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `user_name`, `user_email`, `user_password`, `first_name`, `last_name`, `gender`, `profile_image`, `user_type`) VALUES
-(1, 'Yahya_Zakariyya', 'yahyabinzakariyya@gmail.com', 'Lahore1234', 'Yahya', 'Zakariyya', 'm', '', 1);
+(1, 'Yahya_Zakariyya', 'yahyabinzakariyya@gmail.com', 'Lahore1234', 'Yahya', 'Zakariyya', 'm', '', 1),
+(2, 'yahya_z', '29529@students.riphah.edu.pk', 'Family13579.', 'Yahya', '.', 'm', '', 2);
 
 -- --------------------------------------------------------
 
@@ -341,7 +345,7 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `followers`
@@ -383,7 +387,7 @@ ALTER TABLE `responses`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `user_type`
@@ -399,55 +403,55 @@ ALTER TABLE `user_type`
 -- Constraints for table `comments`
 --
 ALTER TABLE `comments`
-  ADD CONSTRAINT `commenter` FOREIGN KEY (`commenter`) REFERENCES `users` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `notes` FOREIGN KEY (`notes`) REFERENCES `notes` (`notes_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `commenter` FOREIGN KEY (`commenter`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `notes` FOREIGN KEY (`notes`) REFERENCES `notes` (`notes_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `followers`
 --
 ALTER TABLE `followers`
-  ADD CONSTRAINT `follower` FOREIGN KEY (`follower`) REFERENCES `users` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `following` FOREIGN KEY (`following`) REFERENCES `users` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `follower` FOREIGN KEY (`follower`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `following` FOREIGN KEY (`following`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `likes`
 --
 ALTER TABLE `likes`
-  ADD CONSTRAINT `liker` FOREIGN KEY (`liker`) REFERENCES `users` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `notes_id` FOREIGN KEY (`notes_id`) REFERENCES `notes` (`notes_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `liker` FOREIGN KEY (`liker`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `notes_id` FOREIGN KEY (`notes_id`) REFERENCES `notes` (`notes_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `notes`
 --
 ALTER TABLE `notes`
-  ADD CONSTRAINT `notes_author` FOREIGN KEY (`author`) REFERENCES `notes` (`notes_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `notes_subject` FOREIGN KEY (`notes_subject`) REFERENCES `courses` (`course_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `notes_author` FOREIGN KEY (`author`) REFERENCES `notes` (`notes_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `notes_subject` FOREIGN KEY (`notes_subject`) REFERENCES `courses` (`course_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `queries`
 --
 ALTER TABLE `queries`
-  ADD CONSTRAINT `query_category` FOREIGN KEY (`query_category`) REFERENCES `courses` (`course_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `query_category` FOREIGN KEY (`query_category`) REFERENCES `courses` (`course_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `ratings`
 --
 ALTER TABLE `ratings`
-  ADD CONSTRAINT `post` FOREIGN KEY (`post`) REFERENCES `notes` (`notes_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `rater` FOREIGN KEY (`rater`) REFERENCES `users` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `post` FOREIGN KEY (`post`) REFERENCES `notes` (`notes_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `rater` FOREIGN KEY (`rater`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `responses`
 --
 ALTER TABLE `responses`
-  ADD CONSTRAINT `query` FOREIGN KEY (`query`) REFERENCES `queries` (`query_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `responder` FOREIGN KEY (`responder`) REFERENCES `users` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `query` FOREIGN KEY (`query`) REFERENCES `queries` (`query_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `responder` FOREIGN KEY (`responder`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `users`
 --
 ALTER TABLE `users`
-  ADD CONSTRAINT `user_type` FOREIGN KEY (`user_type`) REFERENCES `user_type` (`user_type_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `user_type` FOREIGN KEY (`user_type`) REFERENCES `user_type` (`user_type_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
