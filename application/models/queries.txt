@@ -6,4 +6,9 @@ CREATE VIEW select_queries AS SELECT q.query_id, q.query, u.user_name, c.course_
 
 =>Dangerous queries
 
-DELETE course, notes, ratings, likes, comments FROM course JOIN notes ON course.course_id=notes.course JOIN ratings ON notes.notes_id=ratings.notes JOIN comments ON notes.notes_id=comments.notes JOIN likes ON notes.notes_id=likes.notes WHERE course.course_id=$course_id;
+//Delete course
+DELETE courses, notes, ratings, likes, comments FROM courses JOIN notes ON courses.course_id=notes.notes_subject JOIN ratings ON notes.notes_id=ratings.post JOIN comments ON notes.notes_id=comments.notes JOIN likes ON notes.notes_id=likes.notes_id WHERE courses.course_id=$course_id;
+
+//Delete notes
+DELETE notes, ratings, likes, comments, queries, responses FROM courses JOIN notes ON courses.course_id=notes.notes_subject JOIN ratings ON notes.notes_id=ratings.post JOIN comments ON notes.notes_id=comments.notes JOIN likes ON notes.notes_id=likes.notes_id JOIN queries ON queries.query_category=notes.notes_id JOIN responses ON responses.query=queries.query_id WHERE notes.notes_id={$notes_id}";
+

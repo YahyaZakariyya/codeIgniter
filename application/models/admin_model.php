@@ -121,24 +121,20 @@ class Admin_model extends CI_model {
 
     public function delete_user($user_id)
     {
-        // other delete queries remaining to  apply
         $delete_query = "DELETE FROM users WHERE user_id = $user_id";
         $this->db->query($delete_query);
-        return;
     }
 
     public function delete_notes($notes_id)
     {
-        $delete_query = "DELETE notes, ratings, likes, comments FROM courses JOIN notes ON courses.course_id=notes.course JOIN ratings ON notes.notes_id=ratings.notes JOIN comments ON notes.notes_id=comments.notes JOIN likes ON notes.notes_id=likes.notes WHERE notes.notes_id=$notes_id;";
+        $delete_query = "DELETE FROM notes WHERE notes_id={$notes_id}";
         $this->db->query($delete_query);
-        return;
     }
 
     public function delete_course($course_id)
     {
-        $delete_query = "DELETE courses, notes, ratings, likes, comments FROM courses JOIN notes ON courses.course_id=notes.course JOIN ratings ON notes.notes_id=ratings.notes JOIN comments ON notes.notes_id=comments.notes JOIN likes ON notes.notes_id=likes.notes WHERE courses.course_id=$course_id;";
+        $delete_query = "DELETE FROM courses WHERE course_id={$course_id}";
         $this->db->query($delete_query);
-        return;
     }
 
     public function delete_query()

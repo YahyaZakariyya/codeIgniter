@@ -124,16 +124,16 @@ class Admin extends CI_Controller {
     public function delete()
     {
         if($this->input->get('user_id')!==NULL){
-            $result['form'] = $this->admin_model->delete_user($this->input->get('user_id'));
+            $this->admin_model->delete_user($this->input->get('user_id'));
             header("Location: http://localhost/NSSC/index.php/admin");
         }elseif($this->input->get('notes_id')!==NULL){
-            $result['form'] = $this->admin_model->delete_notes($this->input->get('notes_id'));
+            $this->admin_model->delete_notes($this->input->get('notes_id'));
             header("Location: http://localhost/NSSC/index.php/admin/view_notes");
         }elseif($this->input->get('course_id')!==NULL){
-            $result['form'] = $this->admin_model->delete_course($this->input->get('course_id'));
+            $this->admin_model->delete_course($this->input->get('course_id'));
             header("Location: http://localhost/NSSC/index.php/admin/view_courses");
         }elseif($this->input->get('id')!==NULL){
-            $result['form'] = $this->admin_model->delete_query($this->input->get('id'));
+            $this->admin_model->delete_query($this->input->get('id'));
             header("Location: http://localhost/NSSC/index.php/admin/view_queries");
         }
     }
