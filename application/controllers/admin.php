@@ -8,10 +8,37 @@ class Admin extends CI_Controller {
     // users page view
     public function index()
 	{
-        $result['table'] = $this->admin_model->select_users();
-        $result['heading']='USERS';
-		$this->load->view('admin/index',$result);
+        if(isset($_SESSION['user_name']))
+        {
+            echo 'session set';
+            $result['table'] = $this->admin_model->select_users();
+            $result['heading']='USERS';
+            $this->load->view('admin/index',$result);
+        }
+        else
+        {
+            echo 'session not set';
+            $this->load->view('admin/login');
+        }
 	}
+
+    public function login()
+    {
+        $result = $this->admin_model->validate_login();
+        if(!empty($result))
+        {
+            $this->load->library('session');
+            foreach($result[0] as $key => $value)
+            {
+                $this->session->set_userdata($key,$value);
+            }
+            header('Location: http://localhost/NSSC/index.php/admin');    
+        }
+        else
+        {
+            header('Location: http://localhost/NSSC/index.php/admin?invalid');
+        }
+    }
 
     // notes page view
     public function view_notes()
