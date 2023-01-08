@@ -12,7 +12,7 @@
     <?php foreach($form as $data){
     ?>
     <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="<?php echo $data ?>" placeholder="abc">
+        <input type="text" class="form-control" id="<?php echo $data ?>" name="<?php echo $data ?>">
         <label for="<?php echo $data ?>"><?php echo $data ?></label>
     </div>
     <?php } ?>

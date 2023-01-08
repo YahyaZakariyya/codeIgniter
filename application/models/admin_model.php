@@ -23,7 +23,7 @@ class Admin_model extends CI_model {
 
     public function select_courses()
     {
-        $sql = $this->db->get('course');
+        $sql = $this->db->get('courses');
         $result = $sql->result_array();
         return $result;
     }
@@ -50,7 +50,7 @@ class Admin_model extends CI_model {
     {
         $this->db->select('course_name');
         $this->db->where('course_id',$this->input->get('course_id'));
-        $sql = $this->db->get('course');
+        $sql = $this->db->get('courses');
         $result = $sql->result_array();
         return $result;
     }
@@ -73,7 +73,7 @@ class Admin_model extends CI_model {
 
     public function add_course()
     {
-        $query = "INSERT INTO course (course_name) VALUES ('{$this->input->post('course_name')}')";
+        $query = "INSERT INTO courses (course_name) VALUES ('{$this->input->post('course_name')}')";
         $this->db->query($query);
         header("Location: http://localhost/NSSC/index.php/admin/view_courses");
     }
@@ -100,7 +100,7 @@ class Admin_model extends CI_model {
 
     public function update_course($course_id)
     {
-        $query = "UPDATE course SET course_name='{$this->input->post('course_name')}' WHERE course_id=$course_id";
+        $query = "UPDATE courses SET course_name='{$this->input->post('course_name')}' WHERE course_id=$course_id";
         $this->db->query($query);
         header('Location: http://localhost/NSSC/index.php/admin/view_courses');
     }
@@ -117,14 +117,14 @@ class Admin_model extends CI_model {
 
     public function delete_notes($notes_id)
     {
-        $delete_query = "DELETE notes, ratings, likes, comments FROM course JOIN notes ON course.course_id=notes.course JOIN ratings ON notes.notes_id=ratings.notes JOIN comments ON notes.notes_id=comments.notes JOIN likes ON notes.notes_id=likes.notes WHERE notes.notes_id=$notes_id;";
+        $delete_query = "DELETE notes, ratings, likes, comments FROM courses JOIN notes ON courses.course_id=notes.course JOIN ratings ON notes.notes_id=ratings.notes JOIN comments ON notes.notes_id=comments.notes JOIN likes ON notes.notes_id=likes.notes WHERE notes.notes_id=$notes_id;";
         $this->db->query($delete_query);
         return;
     }
 
     public function delete_course($course_id)
     {
-        $delete_query = "DELETE course, notes, ratings, likes, comments FROM course JOIN notes ON course.course_id=notes.course JOIN ratings ON notes.notes_id=ratings.notes JOIN comments ON notes.notes_id=comments.notes JOIN likes ON notes.notes_id=likes.notes WHERE course.course_id=$course_id;";
+        $delete_query = "DELETE courses, notes, ratings, likes, comments FROM courses JOIN notes ON courses.course_id=notes.course JOIN ratings ON notes.notes_id=ratings.notes JOIN comments ON notes.notes_id=comments.notes JOIN likes ON notes.notes_id=likes.notes WHERE courses.course_id=$course_id;";
         $this->db->query($delete_query);
         return;
     }
