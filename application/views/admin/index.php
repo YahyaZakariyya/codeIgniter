@@ -34,9 +34,9 @@
         }
         if($heading == 'USERS' or $heading == 'COURSES'){
     ?>
-        <td><a href="<?php echo 'http://localhost/NSSC/index.php/admin/update?'.http_build_query([key($rows) => reset($rows)]); ?>"><i class="fa-sharp fa-solid fa-pen-to-square"></i></a></td>
+        <td><a href="<?php echo base_url('update?'.http_build_query([key($rows) => reset($rows)])); ?>"><i class="fa-sharp fa-solid fa-pen-to-square"></i></a></td>
     <?php } ?>
-        <td><a href="<?php echo 'http://localhost/NSSC/index.php/admin/delete?'.http_build_query([key($rows) => reset($rows)]); ?>"><i class="fa-sharp fa-solid fa-trash"></i></a></td=>
+        <td><a href="<?php echo base_url('delete?'.http_build_query([key($rows) => reset($rows)])); ?>"><i class="fa-sharp fa-solid fa-trash"></i></a></td=>
     <?php
         echo "</tr>";
     }

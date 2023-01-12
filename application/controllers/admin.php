@@ -30,18 +30,18 @@ class Admin extends CI_Controller {
             {
                 $this->session->set_userdata($key,$value);
             }
-            header('Location: http://localhost/NSSC/index.php/admin');    
+            header('Location: '.base_url());    
         }
         else
         {
-            header('Location: http://localhost/NSSC/index.php/admin?invalid');
+            header('Location: '.base_url('admin?invalid'));
         }
     }
 
     public function logout()
     {
         $this->session->sess_destroy();
-        header('Location: http://localhost/NSSC/index.php/admin');    
+        header('Location: '.base_url());    
     }
 
     // notes page view
@@ -125,16 +125,16 @@ class Admin extends CI_Controller {
     {
         if($this->input->get('user_id')!==NULL){
             $this->admin_model->delete_user($this->input->get('user_id'));
-            header("Location: http://localhost/NSSC/index.php/admin");
+            header("Location: ".base_url());
         }elseif($this->input->get('notes_id')!==NULL){
             $this->admin_model->delete_notes($this->input->get('notes_id'));
-            header("Location: http://localhost/NSSC/index.php/admin/view_notes");
+            header("Location: ".base_url('view_notes'));
         }elseif($this->input->get('course_id')!==NULL){
             $this->admin_model->delete_course($this->input->get('course_id'));
-            header("Location: http://localhost/NSSC/index.php/admin/view_courses");
+            header("Location: ".base_url('view_courses'));
         }elseif($this->input->get('id')!==NULL){
             $this->admin_model->delete_query($this->input->get('id'));
-            header("Location: http://localhost/NSSC/index.php/admin/view_queries");
+            header("Location: ".base_url('view_queries'));
         }
     }
 }

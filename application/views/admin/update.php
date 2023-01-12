@@ -3,7 +3,7 @@
 <!-- Update Form -->
 <div class="container">
 <?php if(!empty($form)){ ?>
-<form name="update" class="modal-body" action="http://localhost/NSSC/index.php/admin/<?php echo $type.'/'.$id ?>" method="POST">
+<form name="update" class="modal-body" action="<?php echo base_url().$type.'/'.$id ?>" method="POST">
     <?php foreach($form as $data){
         foreach($data as $key => $value){
     ?>

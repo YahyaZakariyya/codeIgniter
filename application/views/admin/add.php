@@ -8,7 +8,7 @@
     </div>
     <?php } ?>
 <?php if(!empty($form)){ ?>
-<form name="add" class="modal-body" action="http://localhost/NSSC/index.php/admin/<?php echo $type; ?>" method="POST">
+<form name="add" class="modal-body" action="<?php echo base_url($type); ?>" method="POST">
     <?php foreach($form as $data){
     ?>
     <div class="form-floating mb-3">

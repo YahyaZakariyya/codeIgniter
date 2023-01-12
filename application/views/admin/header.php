@@ -1,7 +1,7 @@
 <?php
 if(!isset($_SESSION['user_name']))
 {
-    header('Location: http://localhost/NSSC/index.php/admin');    
+    header('Location: '.base_url());    
 }
 ?>
 <!DOCTYPE html>
@@ -26,21 +26,21 @@ if(!isset($_SESSION['user_name']))
                 <div class="">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="http://localhost/NSSC/index.php/admin">USERS</a>
+                            <a class="nav-link active" aria-current="page" href="<?php echo base_url(); ?>">USERS</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="http://localhost/NSSC/index.php/admin/view_notes">NOTES</a>
+                            <a class="nav-link" href="<?php echo base_url('view_notes'); ?>">NOTES</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="http://localhost/NSSC/index.php/admin/view_courses">COURSES</a>
+                            <a class="nav-link" href="<?php echo base_url('view_courses'); ?>">COURSES</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="http://localhost/NSSC/index.php/admin/view_queries">QUERIES</a>
+                            <a class="nav-link" href="<?php echo base_url('view_queries'); ?>">QUERIES</a>
                         </li>
                     </ul>
                 </div>
                 <!-- Logout Button -->
-                <a class="btn btn-dark" href="http://localhost/NSSC/index.php/admin/logout">LOGOUT</a>
+                <a class="btn btn-dark" href="<?php echo base_url('logout'); ?>">LOGOUT</a>
             </div>
         </nav>
         <div class="bg-dark" style="height: 20px;"></div>
