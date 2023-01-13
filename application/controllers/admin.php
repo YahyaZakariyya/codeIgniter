@@ -72,7 +72,7 @@ class Admin extends CI_Controller {
     public function update()
     {
         if($this->input->get('user_id')!==NULL){
-            $result['form'] = $this->admin->update_user_select();
+            $result['forms'] = $this->admin->update_user_select();
             $result['type'] = 'update_user';
             $result['id'] = $this->input->get('user_id');
         }elseif($this->input->get('course_id')!==NULL){

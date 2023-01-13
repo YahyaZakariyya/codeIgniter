@@ -61,7 +61,12 @@ class Admin_model extends CI_model {
         $this->db->where('user_id',$this->input->get('user_id'));
         $sql = $this->db->get('users');
         $result = $sql->result_array();
-        return $result;
+        $result1['form'] = ['text'=>['first_name'=>$result[0]['first_name'], 'last_name'=>$result[0]['last_name'],'user_name'=>$result[0]['user_name']],'email'=>['user_email'=>$result[0]['user_email']],'form-select'=>['gender'=>[['value'=>'m','label'=>'male'],['value'=>'f','label'=>'female']],'user_type'=>$this->admin->select_user_type()]];
+        $result1['gender']=$result[0]['gender'];
+        $result1['user_type']=$result[0]['user_type'];
+        // print_r($result1);
+        // return $sql->result_array();
+        return $result1;
     }
 
     public function update_course_select()
