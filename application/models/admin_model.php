@@ -75,7 +75,8 @@ class Admin_model extends CI_model {
         $this->db->where('course_id',$this->input->get('course_id'));
         $sql = $this->db->get('courses');
         $result = $sql->result_array();
-        return $result;
+        $result1['form'] = ['text'=>['course_name'=>$result[0]['course_name']]];
+        return $result1;
     }
 
     // Insert functions

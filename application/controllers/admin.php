@@ -76,7 +76,7 @@ class Admin extends CI_Controller {
             $result['type'] = 'update_user';
             $result['id'] = $this->input->get('user_id');
         }elseif($this->input->get('course_id')!==NULL){
-            $result['form'] = $this->admin->update_course_select();
+            $result['forms'] = $this->admin->update_course_select();
             $result['type'] = 'update_course';
             $result['id'] = $this->input->get('course_id');
         }
