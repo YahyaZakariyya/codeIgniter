@@ -99,10 +99,10 @@ class Admin extends CI_Controller {
     public function add()
     {
         if($this->input->get('user_id')!==NULL){
-            $array['form'] = ['user_name','user_email','first_name','last_name','user_password','gender','user_type'];
+            $array['form'] = ['text'=>['first_name','last_name','user_name'],'email'=>['user_email'],'password'=>['user_password'],'form-select'=>['gender'=>[['value'=>'m','label'=>'male'],['value'=>'f','label'=>'female']],'user_type'=>$this->admin->select_user_type()]];
             $array['type'] = 'add_user';
         }elseif($this->input->get('course_id')!==NULL){
-            $array['form'] = ['course_name'];
+            $array['form'] = ['text'=>['course_name']];
             $array['type'] = 'add_course';
         }
         $this->load->view('admin/add',$array);

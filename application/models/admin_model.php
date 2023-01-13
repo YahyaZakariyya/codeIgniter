@@ -39,6 +39,13 @@ class Admin_model extends CI_model {
         return $result;
     }
 
+    public function select_user_type()
+    {
+        $sql = $this->db->get('user_type');
+        $result = $sql->result_array();
+        return $result;
+    }
+
     public function select_queries()
     {
         $sql = $this->db->get('select_queries');
@@ -74,6 +81,7 @@ class Admin_model extends CI_model {
         $check_sql = $this->db->query($check_query);
         $check_result = $check_sql->result_array();
         if(empty($check_result)){
+            print_r($_POST);
             $query = "INSERT INTO users (user_name,user_email,first_name,last_name,user_password,gender,user_type) VALUES ('{$this->input->post('user_name')}','{$this->input->post('user_email')}','{$this->input->post('first_name')}','{$this->input->post('last_name')}','{$this->input->post('user_password')}','{$this->input->post('gender')}',{$this->input->post('user_type')})";
             $this->db->query($query);
             header('Location: '.base_url());
