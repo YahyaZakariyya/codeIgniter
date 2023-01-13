@@ -16,6 +16,7 @@ if(!isset($_SESSION['user_name']))
 </head>
 <body>
     <!-- Header -->
+    <div class="d-flex flex-column vh-100">
     <header class="bg-info sticky-top">
         <!-- Navbar -->
         <nav class="navbar navbar-expand">
@@ -45,4 +46,4 @@ if(!isset($_SESSION['user_name']))
         </nav>
         <div class="bg-dark" style="height: 20px;"></div>
     </header>
-    <section class="container-xl vh-100">
+    <main class="container-xl flex-grow-1">
