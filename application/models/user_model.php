@@ -32,4 +32,11 @@ class User_model extends CI_model {
         }
     }
 
+    public function insert_notes()
+    {
+        $date = date('Y-m-d');
+        $sql = "INSERT INTO notes (notes_title, notes_description, author, notes_subject, upload_date) VALUES ('{$this->input->post('notes_title')}','{$this->input->post('notes_description')}',{$_SESSION['user_id']},'{$this->input->post('notes_subject')}','{$date}')";
+        print_r($sql);
+        $this->db->query($sql);
+    }
 }

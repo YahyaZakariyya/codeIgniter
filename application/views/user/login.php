@@ -1,17 +1,16 @@
 <?php include "header.php"; ?>
-<section class="container-xl text-center">
-    <form action="http://localhost/NSSC/main/login_button" method="POST">
-        <div class="form-floating mb-3">
-            <input type="text" class="form-control" name="user_name">
-            <label for="user_name">Username or Email address</label>
-        </div>
-        <div class="form-floating">
-            <input type="password" class="form-control" name="user_password">
-            <label for="user_password">Password</label>
-        </div>
-        <input type="submit" name="login_button" class="btn btn-primary" value="Submit"></input>
-    </form>
-    <?php print_r($_SESSION); ?>
-
-</section>
+<!-- Login Form -->
+<div class="container">
+<form action="http://localhost/NSSC/main/login_button" method="POST">
+    <div class="mb-2">
+        <label for="user_name" class="form-label">Username or Email</label>
+        <input type="text" name="user_name" class="form-control"/>
+    </div>
+    <div class="mb-2">
+        <label for="user_password" class="form-label">Password</label>
+        <input type="password" name="user_password" class="form-control"/>
+    </div>
+    <input class="btn btn-dark" type="submit" name="login_button" value="LOGIN"></input>
+</form>
+</div>
 <?php include "footer.php"; ?>

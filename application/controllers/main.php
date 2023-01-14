@@ -32,7 +32,6 @@ class Main extends CI_Controller {
 
 	public function login_button()
     {
-		print_r($_POST);
 		if(isset($_POST['login_button']))
 		{
 			$result = $this->user->login();
@@ -43,22 +42,46 @@ class Main extends CI_Controller {
 				{
 					$this->session->set_userdata($key,$value);
 				}
-				print_r($_SESSION);
+				header('Location: http://localhost/NSSC/main/');
 			}
 			else
 			{
-				// header('Location: http://localhost/NSSC/main/login?invalid');
+				header('Location: http://localhost/NSSC/main/login?invalid');
 			}
 		}
 		else
 		{
-			echo "button not pressed";
+			header('Location: http://localhost/NSSC/main/');
 		}
     }
 
 	public function logout()
     {
         $this->session->sess_destroy();
+		header('Location: http://localhost/NSSC/main/');
     }
+
+	public function profile()
+	{
+		$this->load->view('user/profile');
+	}
+
+	public function add_notes()
+	{
+		$this->load->view('user/addnotes');
+	}
+
+	public function insert_notes()
+	{
+		if(isset($_POST['insert_notes']))
+		{
+			$this->user->insert_notes();
+			// redirect('user/profile');
+		}
+		else
+		{
+			echo "button not pressed";
+		}
+	}
 	
 }
