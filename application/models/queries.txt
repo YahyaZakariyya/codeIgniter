@@ -12,3 +12,13 @@ DELETE courses, notes, ratings, likes, comments FROM courses JOIN notes ON cours
 //Delete notes
 DELETE notes, ratings, likes, comments, queries, responses FROM courses JOIN notes ON courses.course_id=notes.notes_subject JOIN ratings ON notes.notes_id=ratings.post JOIN comments ON notes.notes_id=comments.notes JOIN likes ON notes.notes_id=likes.notes_id JOIN queries ON queries.query_category=notes.notes_id JOIN responses ON responses.query=queries.query_id WHERE notes.notes_id={$notes_id}";
 
+
+CREATE PROCEDURE add_user(IN un VARCHAR(30),IN ue TEXT,IN fn VARCHAR(30),IN ln VARCHAR(30),IN up TEXT,IN g VARCHAR(30))
+BEGIN
+INSERT INTO users (user_name,user_email,first_name,last_name,user_password,gender) VALUES (un,ue,fn,ln,up,g);
+END
+
+CREATE PROCEDURE insert_notes(IN nt VARCHAR(100), IN nd VARCHAR (500), IN a INT, IN nf TEXT, IN ns INT, IN ud DATE)
+BEGIN
+INSERT INTO notes (notes_title, notes_description, author, notes_file, notes_subject, upload_date) VALUES (nt,nd,a,nf,ns,ud);
+END

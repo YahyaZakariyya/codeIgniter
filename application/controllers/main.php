@@ -63,7 +63,11 @@ class Main extends CI_Controller {
 
 	public function profile()
 	{
-		$this->load->view('user/profile');
+		$result['notes_count'] = $this->user->notes_count();
+		$result['follower_count'] = $this->user->follower_count();
+		$result['following_count'] = $this->user->following_count();
+		$result['notes'] = $this->user->select_notes();
+		$this->load->view('user/profile', $result);
 	}
 
 	public function add_notes()
@@ -76,7 +80,7 @@ class Main extends CI_Controller {
 		if(isset($_POST['insert_notes']))
 		{
 			$this->user->insert_notes();
-			// redirect('user/profile');
+			redirect('profile');
 		}
 		else
 		{

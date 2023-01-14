@@ -1,7 +1,7 @@
 <?php include "header.php"; ?>
 <!-- Sign Up Form -->
 <div class="container">
-<form action="" method="POST" enctype="multipart/form-data">
+<form action="http://localhost/NSSC/main/signup_button" method="POST">
 	<!-- First Name Input Field -->
 	<div class="mb-2">
 		<label for="first_name" class="form-label">First Name</label>

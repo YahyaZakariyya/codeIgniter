@@ -18,7 +18,7 @@
         <nav class="navbar container-xl">
             <div class="nav nav-fill container-fluid">
                 <!-- Navbar brand i.e. logo -->
-                <a class="navbar-brand" href="index.php">NSSC</a>
+                <a class="navbar-brand" href="http://localhost/NSSC/main/">NSSC</a>
                 <!-- Search Bar and Button -->
                 <div class="col-3 col-sm-4 col-md-6">
                     <form class="d-flex">

@@ -5,7 +5,7 @@ class User_model extends CI_model {
     
     public function login()
     {
-        $query = "SELECT u.user_id, u.user_name, ut.user_type FROM users u JOIN user_type ut ON u.user_type=ut.user_type_id WHERE (u.user_name='{$this->input->post('user_name')}' OR u.user_email='{$this->input->post('user_name')}') AND u.user_password='{$this->input->post('user_password')}' AND ut.user_type='user'";
+        $query = "CALL validate_login('{$this->input->post('user_name')}','{$this->input->post('user_password')}')";
         $sql = $this->db->query($query);
         if($sql->num_rows()>0){
             $result = $sql->result_array();
@@ -18,11 +18,17 @@ class User_model extends CI_model {
 
     public function signup()
     {
-        $check_query = "SELECT user_name, user_email FROM users WHERE user_name='{$this->input->post('user_name')}' OR user_email='{$this->input->post('user_email')}'";
+        $user_name = $this->input->post('user_name');
+        $user_email = $this->input->post('user_email');
+        $first_name = $this->input->post('first_name');
+        $last_name = $this->input->post('last_name');
+        $user_password = $this->input->post('user_password');
+        $gender = $this->input->post('gender');
+        $check_query = "SELECT user_name, user_email FROM users WHERE user_name='{$user_name}' OR user_email='{$user_email}'";
         $check_sql = $this->db->query($check_query);
         $check_result = $check_sql->result_array();
         if(empty($check_result)){
-            $query = "INSERT INTO users (user_name,user_email,first_name,last_name,user_password,gender) VALUES ('{$this->input->post('user_name')}','{$this->input->post('user_email')}','{$this->input->post('first_name')}','{$this->input->post('last_name')}','{$this->input->post('user_password')}','{$this->input->post('gender')}')";
+            $query = "CALL add_user('{$user_name}','{$user_email}','{$first_name}','{$last_name}','{$user_password}','{$gender}')";
             $this->db->query($query);
             echo "Data inserted";
             // header('Location: '.base_url());
@@ -34,9 +40,46 @@ class User_model extends CI_model {
 
     public function insert_notes()
     {
+        $notes_title = $this->input->post('notes_title');
+        $notes_description = $this->input->post('notes_description');
+        $author = $_SESSION['user_id'];
+        $notes_file = '';
+        $notes_subject = $this->input->post('notes_subject');
         $date = date('Y-m-d');
-        $sql = "INSERT INTO notes (notes_title, notes_description, author, notes_subject, upload_date) VALUES ('{$this->input->post('notes_title')}','{$this->input->post('notes_description')}',{$_SESSION['user_id']},'{$this->input->post('notes_subject')}','{$date}')";
-        print_r($sql);
-        $this->db->query($sql);
+        $query = "CALL insert_notes('{$notes_title}','{$notes_description}',{$author},'{$notes_file}','{$notes_subject}','{$date}')";
+        print_r($query);
+        $this->db->query($query);
+    }
+
+    public function notes_count()
+    {
+        $query = "SELECT COUNT(*) FROM notes WHERE author='{$_SESSION['user_id']}'";
+        $sql = $this->db->query($query);
+        $result = $sql->result_array();
+        return $result[0]['COUNT(*)'];
+    }
+
+    public function follower_count()
+    {
+        $query = "SELECT COUNT(*) FROM followers WHERE following='{$_SESSION['user_id']}'";
+        $sql = $this->db->query($query);
+        $result = $sql->result_array();
+        return $result[0]['COUNT(*)'];
+    }
+
+    public function following_count()
+    {
+        $query = "SELECT COUNT(*) FROM followers WHERE follower='{$_SESSION['user_id']}'";
+        $sql = $this->db->query($query);
+        $result = $sql->result_array();
+        return $result[0]['COUNT(*)'];
+    }
+
+    public function select_notes()
+    {
+        $query = "SELECT * FROM notes WHERE author='{$_SESSION['user_id']}'";
+        $sql = $this->db->query($query);
+        $result = $sql->result_array();
+        return $result;
     }
 }

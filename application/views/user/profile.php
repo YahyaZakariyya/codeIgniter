@@ -8,35 +8,37 @@
     <div class="row">
         <div class="col-4">
             <h5 class="m-0 p-0">Followers</h5>
-            <p>300</p>
+            <p><?php echo $follower_count; ?></p>
         </div>
         <div class="col-4">
             <h5 class="m-0 p-0">Following</h5>
-            <p>30</p>
+            <p><?php echo $following_count; ?></p>
         </div>
         <div class="col-4">
             <h5 class="m-0 p-0">Notes</h5>
-            <p>17</p>
+            <p><?php echo $notes_count; ?></p>
         </div>
     </div>
     <!-- <button class="btn btn-light rounded-pill col-5">Follow</button> -->
-    <button class="btn btn-outline-light rounded-pill col-5">Following</button>
+    <!-- <button class="btn btn-outline-light rounded-pill col-5">Following</button> -->
     <a class="btn btn-outline-light rounded-pill col-5" href="http://localhost/NSSC/main/add_notes">Add Notes</a>
 
 </div>
 
 <!-- Card Sample-1 -->
 <table class="table">
+    <?php foreach($notes as $note){ ?>
     <div class="shadow-sm row mx-1 my-3 border rounded border-3 border-secondary ">
         <div class="p-4 bg-light" >
-            <h5></h5>
-            <!-- <sup>Uploaded: 12-11-2022</sup> -->
+            <h5><?php echo $note['notes_title'] ?></h5>
+            <p>Uploaded: <?php echo $note['upload_date'] ?></p>
             <div class="row">
                 <p class="text-nowrap col-md-11 col-10 m-0" style="overflow: hidden; text-overflow: ellipsis;"></p>
                 <a class="col-1 link-secondary" href="">view</a>
             </div>
         </div>
     </div>
+    <?php } ?>
 </table>
 </section>
 <?php include "footer.php"; ?>
