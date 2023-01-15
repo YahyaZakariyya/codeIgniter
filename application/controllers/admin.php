@@ -8,7 +8,7 @@ class Admin extends CI_Controller {
     // users page view
     public function index()
 	{
-        if(isset($_SESSION['user_name']))
+        if(isset($_SESSION['user_name']) and $_SESSION['user_type']=='admin')
         {
             $result['table'] = $this->admin->select_users();
             $result['heading']='USERS';
@@ -16,6 +16,7 @@ class Admin extends CI_Controller {
         }
         else
         {
+            $this->session->sess_destroy();
             $this->load->view('admin/login');
         }
 	}

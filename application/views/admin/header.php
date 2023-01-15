@@ -1,7 +1,7 @@
 <?php
 if(!isset($_SESSION['user_name']))
 {
-    header('Location: '.base_url('admin/'));    
+    redirect('admin/');
 }
 ?>
 <!DOCTYPE html>

@@ -5,7 +5,7 @@ class Admin_model extends CI_model {
 
     public function validate_login()
     {
-        $query = "SELECT u.user_id, u.user_name FROM users u JOIN user_type ut ON u.user_type=ut.user_type_id WHERE (u.user_name='{$this->input->post('user_name')}' OR u.user_email='{$this->input->post('user_name')}') AND u.user_password='{$this->input->post('user_password')}' AND ut.user_type='admin'";
+        $query = "SELECT u.user_id, u.user_name, ut.user_type FROM users u JOIN user_type ut ON u.user_type=ut.user_type_id WHERE (u.user_name='{$this->input->post('user_name')}' OR u.user_email='{$this->input->post('user_name')}') AND u.user_password='{$this->input->post('user_password')}' AND ut.user_type='admin'";
         $sql = $this->db->query($query);
         if($sql->num_rows()>0){
             $result = $sql->result_array();
