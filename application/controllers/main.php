@@ -72,20 +72,51 @@ class Main extends CI_Controller {
 
 	public function add_notes()
 	{
-		$this->load->view('user/addnotes');
+		$result['options'] = $this->user->select_courses();
+		$this->load->view('user/addnotes',$result);
 	}
 
 	public function insert_notes()
 	{
 		if(isset($_POST['insert_notes']))
 		{
-			$this->user->insert_notes();
-			redirect('profile');
+			$config['upload_path'] = './notes_files/';
+			$config['allowed_types'] = 'pdf';
+			$this->load->library('upload', $config);
+			$temp_name = $_SESSION['user_name'].time().'.pdf';
+			$_FILES['notes_file']['name'] = $temp_name;
+			if (!$this->upload->do_upload('notes_file'))
+			{
+				$error = array('error' => $this->upload->display_errors());
+				redirect('addnotes',$error);
+			}
+			else
+			{
+				$this->user->insert_notes($temp_name);
+				redirect('profile');
+			}		
 		}
 		else
 		{
 			echo "button not pressed";
 		}
 	}
+
+	public function update_notes()
+	{
+		$result['notes'] = $this->user->select_notes();
+		$result['options'] = $this->user->select_courses();
+		$this->load->view('user/addnotes',$result);
+	}
+
+	public function modify_notes($notes_id)
+	{
+		$this->user->update_notes($notes_id);
+		redirect('profile');
+	}
 	
+	public function upload()
+	{
+	}
+
 }

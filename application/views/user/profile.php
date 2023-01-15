@@ -34,7 +34,8 @@
             <p>Uploaded: <?php echo $note['upload_date'] ?></p>
             <div class="row">
                 <p class="text-nowrap col-md-11 col-10 m-0" style="overflow: hidden; text-overflow: ellipsis;"></p>
-                <a class="col-1 link-secondary" href="">view</a>
+                <a class="col-1 link-secondary" href="http://localhost/NSSC/main/update_notes?notes_id=<?php echo $note['notes_id']; ?>">EDIT</a>
+                <a class="col-1 link-secondary" href="">VIEW</a>
             </div>
         </div>
     </div>

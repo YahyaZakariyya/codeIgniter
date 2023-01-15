@@ -22,3 +22,8 @@ CREATE PROCEDURE insert_notes(IN nt VARCHAR(100), IN nd VARCHAR (500), IN a INT,
 BEGIN
 INSERT INTO notes (notes_title, notes_description, author, notes_file, notes_subject, upload_date) VALUES (nt,nd,a,nf,ns,ud);
 END
+
+CREATE PROCEDURE update_notes(IN nt VARCHAR(100),IN nd VARCHAR(500), IN ns INT, IN ni INT)
+BEGIN
+UPDATE notes SET notes_title=nt, notes_description=nd, notes_subject=ns WHERE notes_id=ni;
+END;

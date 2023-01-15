@@ -1,5 +1,6 @@
 .DS_Store
 
+notes_files
 application/cache/*
 !application/cache/index.html
 
