@@ -90,9 +90,9 @@ class Admin_model extends CI_model {
             print_r($_POST);
             $query = "INSERT INTO users (user_name,user_email,first_name,last_name,user_password,gender,user_type) VALUES ('{$this->input->post('user_name')}','{$this->input->post('user_email')}','{$this->input->post('first_name')}','{$this->input->post('last_name')}','{$this->input->post('user_password')}','{$this->input->post('gender')}',{$this->input->post('user_type')})";
             $this->db->query($query);
-            header('Location: '.base_url());
+            return true;
         }else{
-            header("Location: ".base_url('add?user_id&error=true'));
+            return false;
         }
     }
 
@@ -100,7 +100,6 @@ class Admin_model extends CI_model {
     {
         $query = "INSERT INTO courses (course_name) VALUES ('{$this->input->post('course_name')}')";
         $this->db->query($query);
-        header("Location: ".base_url('view_courses'));
     }
 
     // Update functions
@@ -115,11 +114,11 @@ class Admin_model extends CI_model {
             // update record query
             $update_query = "UPDATE users SET user_name='{$this->input->post('user_name')}', user_email='{$this->input->post('user_email')}', first_name='{$this->input->post('first_name')}', last_name='{$this->input->post('last_name')}', gender='{$this->input->post('gender')}', user_type='{$this->input->post('user_type')}' WHERE user_id={$user_id}";
             $this->db->query($update_query);
-            header('Location: '.base_url());
+            return true;
         }
         else{
             // printing an error message missing
-            header('Location: '.base_url('update?user_id='.$user_id));
+            return false;
         }
     }
 
@@ -128,7 +127,6 @@ class Admin_model extends CI_model {
         $query = "UPDATE courses SET course_name='{$this->input->post('course_name')}' WHERE course_id=$course_id";
         echo $query;
         $this->db->query($query);
-        header('Location: '.base_url('view_courses'));
     }
 
     // Delete Functions
@@ -151,8 +149,9 @@ class Admin_model extends CI_model {
         $this->db->query($delete_query);
     }
 
-    public function delete_query()
+    public function delete_query($query_id)
     {
-
+        $delete_query = "DELETE FROM queries WHERE query_id={$query_id}";
+        $this->db->query($delete_query);
     }
 }

@@ -1,7 +1,7 @@
 <?php
 if(!isset($_SESSION['user_name']))
 {
-    header('Location: '.base_url());    
+    header('Location: '.base_url('admin/'));    
 }
 ?>
 <!DOCTYPE html>
@@ -27,21 +27,21 @@ if(!isset($_SESSION['user_name']))
                 <div class="">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="<?php echo base_url(); ?>">USERS</a>
+                            <a class="nav-link active" aria-current="page" href="<?php echo base_url('admin/'); ?>">USERS</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?php echo base_url('view_notes'); ?>">NOTES</a>
+                            <a class="nav-link" href="<?php echo base_url('admin/view_notes'); ?>">NOTES</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?php echo base_url('view_courses'); ?>">COURSES</a>
+                            <a class="nav-link" href="<?php echo base_url('admin/view_courses'); ?>">COURSES</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?php echo base_url('view_queries'); ?>">QUERIES</a>
+                            <a class="nav-link" href="<?php echo base_url('admin/view_queries'); ?>">QUERIES</a>
                         </li>
                     </ul>
                 </div>
                 <!-- Logout Button -->
-                <a class="btn btn-dark" href="<?php echo base_url('logout'); ?>">LOGOUT</a>
+                <a class="btn btn-dark" href="<?php echo base_url('admin/logout'); ?>">LOGOUT</a>
             </div>
         </nav>
         <div class="bg-dark" style="height: 20px;"></div>

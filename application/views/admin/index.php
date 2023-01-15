@@ -5,11 +5,10 @@
         <h1><?php echo $heading; ?></h1>
     </div>
     <div class="col-auto align-self-center">
-        <!-- <a class="btn btn-dark rounded-0" href="http://localhost/NSSC/index.php/admin/add?<?php //if($heading=='USERS'){echo 'user_id';}else{echo 'course_id';} ?>">Add <?php //echo $heading ?></a> -->
         <?php if($heading=='USERS'){ ?>
-            <a class="btn btn-dark" href="<?php echo base_url('add?user_id') ?>"><i class="fa-sharp fa-solid fa-user-plus"></i></a>
+            <a class="btn btn-dark" href="<?php echo base_url('admin/add?user_id') ?>"><i class="fa-sharp fa-solid fa-user-plus"></i></a>
         <?php }elseif($heading == 'COURSES'){ ?>
-            <a class="btn btn-dark" href="<?php echo base_url('add?course_id') ?>"><i class="fa-sharp fa-solid fa-folder-plus"></i></a>
+            <a class="btn btn-dark" href="<?php echo base_url('admin/add?course_id') ?>"><i class="fa-sharp fa-solid fa-folder-plus"></i></a>
         <?php } ?>
     </div>
 </div>
@@ -37,9 +36,9 @@
         }
         if($heading == 'USERS' or $heading == 'COURSES'){
     ?>
-        <td><a href="<?php echo base_url('update?'.http_build_query([key($rows) => reset($rows)])); ?>"><i class="fa-sharp fa-solid fa-pen-to-square text-dark"></i></a></td>
+        <td><a href="<?php echo base_url('admin/update?'.http_build_query([key($rows) => reset($rows)])); ?>"><i class="fa-sharp fa-solid fa-pen-to-square text-dark"></i></a></td>
     <?php } ?>
-        <td><a href="<?php echo base_url('delete?'.http_build_query([key($rows) => reset($rows)])); ?>"><i class="fa-sharp fa-solid fa-trash text-dark"></i></a></td=>
+        <td><a href="<?php echo base_url('admin/delete?'.http_build_query([key($rows) => reset($rows)])); ?>"><i class="fa-sharp fa-solid fa-trash text-dark"></i></a></td=>
     <?php
         echo "</tr>";
     }

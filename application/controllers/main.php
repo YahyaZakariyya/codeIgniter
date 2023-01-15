@@ -112,7 +112,7 @@ class Main extends CI_Controller {
 	public function modify_notes($notes_id)
 	{
 		$this->user->update_notes($notes_id);
-		redirect('profile');
+		redirect('main/profile');
 	}
 	
 	public function upload()

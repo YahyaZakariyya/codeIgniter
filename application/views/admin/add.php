@@ -8,7 +8,7 @@
     </div>
     <?php } ?>
 <?php if(!empty($form)){ ?>
-<form name="add" class="modal-body" action="<?php echo base_url($type); ?>" method="POST">
+<form name="add" class="modal-body" action="<?php echo base_url('admin/'.$type); ?>" method="POST">
     <?php foreach($form as $type=>$labels){
         if(in_array($type,['text','email','password'])){
             foreach($labels as $label){

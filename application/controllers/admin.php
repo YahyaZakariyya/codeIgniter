@@ -30,18 +30,18 @@ class Admin extends CI_Controller {
             {
                 $this->session->set_userdata($key,$value);
             }
-            header('Location: '.base_url());    
+            redirect('admin/');    
         }
         else
         {
-            header('Location: '.base_url('admin?invalid'));
+            redirect('admin/admin?invalid');
         }
     }
 
     public function logout()
     {
         $this->session->sess_destroy();
-        header('Location: '.base_url());    
+        redirect('admin/');    
     }
 
     // notes page view
@@ -86,13 +86,18 @@ class Admin extends CI_Controller {
     // update_user data from view to model
     public function update_user($user_id)
     {
-        $this->admin->update_user($user_id);
+        if($this->admin->update_user($user_id)){
+            redirect('admin/');
+        }else{
+            redirect('admin/update?user_id='.$user_id);
+        }
     }
 
     // update_course data from view to model
     public function update_course($course_id)
     {
         $this->admin->update_course($course_id);
+        redirect('admin/view_courses');
     }
 
     // add page view
@@ -111,13 +116,18 @@ class Admin extends CI_Controller {
     // add_user data form view to model
     public function add_user()
     {
-        $this->admin->add_user();
+        if($this->admin->add_user()){
+            redirect('admin/');
+        }else{
+            redirect('admin/add?user_id&error=true');
+        }
     }
 
     // add_course data form view to model
     public function add_course()
     {
         $this->admin->add_course();
+        redirect('admin/view_courses');
     }
 
     // delete data
@@ -125,16 +135,16 @@ class Admin extends CI_Controller {
     {
         if($this->input->get('user_id')!==NULL){
             $this->admin->delete_user($this->input->get('user_id'));
-            header("Location: ".base_url());
+            redirect('admin');
         }elseif($this->input->get('notes_id')!==NULL){
             $this->admin->delete_notes($this->input->get('notes_id'));
-            header("Location: ".base_url('view_notes'));
+            redirect('admin/view_notes');
         }elseif($this->input->get('course_id')!==NULL){
             $this->admin->delete_course($this->input->get('course_id'));
-            header("Location: ".base_url('view_courses'));
+            redirect('view_courses');
         }elseif($this->input->get('id')!==NULL){
             $this->admin->delete_query($this->input->get('id'));
-            header("Location: ".base_url('view_queries'));
+            redirect('view_queries');
         }
     }
 }

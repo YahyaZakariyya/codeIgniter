@@ -15,7 +15,7 @@
             Wrong username or password
         </div>
         <?php } ?>
-        <form action="<?php echo base_url('login'); ?>" method="POST">
+        <form action="<?php echo base_url('admin/login'); ?>" method="POST">
             <h1>LOGIN</h1>
             <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" name="user_name">

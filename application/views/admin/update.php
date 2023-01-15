@@ -3,7 +3,7 @@
 <!-- Update Form -->
 <div class="container">
 <?php if(!empty($forms)){ ?>
-<form name="update" class="modal-body" action="<?php echo base_url().$type.'/'.$id ?>" method="POST">
+<form name="update" class="modal-body" action="<?php echo base_url('admin/').$type.'/'.$id ?>" method="POST">
 <?php foreach($forms['form'] as $type=>$labels){
         if(in_array($type,['text','email','password'])){
             foreach($labels as $label=>$value){
