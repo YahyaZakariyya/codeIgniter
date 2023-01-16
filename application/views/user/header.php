@@ -20,14 +20,14 @@
                 <!-- Navbar brand i.e. logo -->
                 <a class="navbar-brand" href="http://localhost/NSSC/main/">NSSC</a>
                 <!-- Search Bar and Button -->
-                <?php if($_SERVER['PATH_INFO']=='/main/search'){ ?>
+                <?php //if($_SERVER['PATH_INFO']=='/main/search'){ ?>
                 <div class="col-3 col-sm-4 col-md-6">
                     <form class="d-flex" action="<?php echo base_url('main/search'); ?>" method="GET">
                         <input class="form-control rounded-0 border-0" type="search" placeholder="Search" name="search">
                         <button class="btn btn-primary rounded-0" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                     </form>
                 </div>
-                <?php } ?>
+                <?php //} ?>
                 <!-- Login & SignUp Buttons -->
                 <div>
                 <?php

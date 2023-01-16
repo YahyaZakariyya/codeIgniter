@@ -18,11 +18,6 @@ if(isset($_SESSION['user_name'])){
     <div class="colour"></div>
     <div class="colour"></div>
     <div class="box">
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
         <div class="container">
         <div class="form">
             <h2>Login Form</h2>
