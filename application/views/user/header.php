@@ -7,11 +7,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-    <!-- <script src="https://kit.fontawesome.com/79e546177a.js" crossorigin="anonymous"></script> -->
+    <script src="https://kit.fontawesome.com/79e546177a.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <div class="d-flex flex-column vh-100">
-
     <!-- Header -->
     <header class="bg-info sticky-top">
         <!-- Navbar -->
@@ -20,12 +19,14 @@
                 <!-- Navbar brand i.e. logo -->
                 <a class="navbar-brand" href="http://localhost/NSSC/main/">NSSC</a>
                 <!-- Search Bar and Button -->
+                <?php if($_SERVER['PATH_INFO']=='/main/search'){ ?>
                 <div class="col-3 col-sm-4 col-md-6">
                     <form class="d-flex" action="<?php echo base_url('main/search'); ?>" method="GET">
                         <input class="form-control rounded-0 border-0" type="search" placeholder="Search" name="search">
                         <button class="btn btn-primary rounded-0" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                     </form>
                 </div>
+                <?php } ?>
                 <!-- Login & SignUp Buttons -->
                 <div>
                 <?php
@@ -33,10 +34,9 @@
                 ?>
                     <!-- When logged in -->
                     <div class="btn-group">
-                        <button type="button" class="btn clr-5 text-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><?php echo $_SESSION['user_name']; ?></button>
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><?php echo $_SESSION['user_name']; ?></button>
                         <ul class="dropdown-menu dropdown-menu-end">
                         <li><a class="dropdown-item" type="button" href="http://localhost/NSSC/main/profile">Profile</a></li>
-                        <li><a class="dropdown-item" type="button">Settings action</a></li>
                         <li><a class="dropdown-item" type="button" href="http://localhost/NSSC/main/logout">Logout</a></li>
                         </ul>
                     </div>

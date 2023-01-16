@@ -36,7 +36,7 @@
             <p>Uploaded: <?php echo $note['upload_date'] ?></p>
             <div class="row">
                 <p class="text-nowrap col-md-11 col-10 m-0" style="overflow: hidden; text-overflow: ellipsis;"></p>
-                <a class="col-1 link-secondary" href="<?php echo base_url(); ?>assets/your_pdf_file.pdf" target="_blank">VIEW</a>
+                <a class="col-1 link-secondary" href="<?php echo base_url('main/temp/'.$note['notes_file']); ?>" target="_blank">VIEW</a>
             </div>
         </div>
     </div>

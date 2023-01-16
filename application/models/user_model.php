@@ -5,7 +5,9 @@ class User_model extends CI_model {
     
     public function login()
     {
-        $query = "CALL validate_login('{$this->input->post('user_name')}','{$this->input->post('user_password')}')";
+        $user_name = $this->input->post('user_name');
+        $user_password = $this->input->post('user_password');
+        $query = "CALL validate_login('{$user_name}','{$user_password}')";
         $sql = $this->db->query($query);
         if($sql->num_rows()>0){
             $result = $sql->result_array();
@@ -14,7 +16,6 @@ class User_model extends CI_model {
             return Array();
         }
     }
-
 
     public function signup()
     {
@@ -92,7 +93,7 @@ class User_model extends CI_model {
     public function search_notes()
     {
         $search = $this->input->get('search');
-        $query = "SELECT n.notes_title, n.notes_description, n.author AS user_id, n.upload_date, u.user_name AS author, c.course_name AS notes_subject FROM notes n JOIN users u ON n.author=u.user_id JOIN courses c ON n.notes_subject=c.course_id WHERE n.notes_title LIKE '%{$search}%' OR n.notes_description LIKE '%{$search}%'";
+        $query = "SELECT n.notes_title, n.notes_description, n.notes_file, n.author AS user_id, n.upload_date, u.user_name AS author, c.course_name AS notes_subject FROM notes n JOIN users u ON n.author=u.user_id JOIN courses c ON n.notes_subject=c.course_id WHERE n.notes_title LIKE '%{$search}%' OR n.notes_description LIKE '%{$search}%'";
         $sql = $this->db->query($query);
         $result = $sql->result_array();
         return $result;

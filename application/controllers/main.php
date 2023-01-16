@@ -144,4 +144,36 @@ class Main extends CI_Controller {
 		$this->user->follow_unfollow($user_id);
 		redirect('main/view_profile/'.$user_id);
 	}
+
+	// public function show_file($file_name)
+	// {
+	// 	$this->load->helper('file');
+	// 	$data = read_file('.notes_files/'.$file_name);
+	// 	$this->output->set_content_type('application/pdf');
+	// 	$this->output->set_header('Content-Disposition: inline; filename="'.basename('notes_files/'.$file_name).'"');
+	// 	$this->output->set_output($data)->display();
+	// 	// $this->output->set_content_type(get_mime_by_extension('.notes_files/'.$file_name))->set_output($data)->_display();
+	// 	exit;
+	// }
+	public function show_file($file_name)
+	{
+		$this->load->helper('file');
+		if(file_exists('notes_files/'.$file_name)){
+			$data = read_file('notes_files/'.$file_name);
+			$this->output->set_content_type('application/pdf');
+			$this->output->set_header('Content-Disposition: inline; filename="'.basename('notes_files/'.$file_name).'"');
+			$this->output->set_output($data);
+			exit;
+		} else{
+			// file does not exist
+			// return some error message
+		}
+	}
+	
+	public function temp($file_name)
+	{
+		$result['file_name'] = $file_name;
+		$this->load->view('user/temp',$result);
+	}
+
 }

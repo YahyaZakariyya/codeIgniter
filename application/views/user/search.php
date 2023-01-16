@@ -23,15 +23,15 @@
             <div class="p-2 pt-0">
                 <!-- Notes Info -->
                 <div>
-                    <span class="col"><i class="fa-sharp fa-solid fa-note-sticky"></i><?php echo $result['notes_subject']; ?></span>
-                    <span class="col"><i class="fa-solid fa-user"></i><a href="<?php echo base_url('main/view_profile/'.$result['user_id']); ?>"><?php echo $result['author']; ?></a></span>
+                    <span class="col"><i class="fa-sharp fa-solid fa-note-sticky"></i><?php echo $result['notes_subject']; ?></span><br>
+                    <span class="col"><i class="fa-solid fa-user"></i><a href="<?php echo base_url('main/view_profile/'.$result['user_id']); ?>"><?php echo $result['author']; ?></a></span><br>
                     <span class="col"><i class="fa-solid fa-calendar-days"></i><?php echo $result['upload_date']; ?></span>
                 </div>
                 <!-- Notes Description -->
                 <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsum veritatis rerum nihil ratione alias ex laboriosam.</p>
                 <!-- Notes View Button -->
                 <div class="text-end">
-                    <a href="#" class="btn btn-sm btn-outline-primary rounded-0">VIEW</a>
+                    <a class="btn btn-sm btn-outline-primary rounded-0" href="<?php echo base_url('main/temp/'.$result['notes_file']); ?>" target="_blank">VIEW</a>
                 </div>
             </div>
         </div>

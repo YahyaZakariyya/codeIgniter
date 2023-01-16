@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 08, 2023 at 04:42 PM
+-- Generation Time: Jan 16, 2023 at 05:57 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -20,6 +20,28 @@ SET time_zone = "+00:00";
 --
 -- Database: `nssc`
 --
+
+DELIMITER $$
+--
+-- Procedures
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `add_user` (IN `un` VARCHAR(30), IN `ue` TEXT, IN `fn` VARCHAR(30), IN `ln` VARCHAR(30), IN `up` TEXT, IN `g` VARCHAR(30))   BEGIN
+INSERT INTO users (user_name,user_email,first_name,last_name,user_password,gender) VALUES (un,ue,fn,ln,up,g);
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insert_notes` (IN `nt` VARCHAR(100), IN `nd` VARCHAR(500), IN `a` INT, IN `nf` TEXT, IN `ns` INT, IN `ud` DATE)   BEGIN
+INSERT INTO notes (notes_title, notes_description, author, notes_file, notes_subject, upload_date) VALUES (nt,nd,a,nf,ns,ud);
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `update_notes` (IN `nt` VARCHAR(100), IN `nd` VARCHAR(500), IN `ns` INT, IN `ni` INT)   BEGIN
+UPDATE notes SET notes_title=nt, notes_description=nd, notes_subject=ns WHERE notes_id=ni;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `validate_login` (IN `un` TEXT, IN `up` TEXT)   BEGIN
+SELECT u.user_id, u.user_name, ut.user_type FROM users u JOIN user_type ut ON u.user_type=ut.user_type_id WHERE (u.user_name=un OR u.user_email=un) AND u.user_password=up AND ut.user_type='user';
+END$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -51,9 +73,8 @@ CREATE TABLE `courses` (
 
 INSERT INTO `courses` (`course_id`, `course_name`) VALUES
 (1, 'Database Systems'),
-(2, 'Web Programming'),
 (3, 'Object Oriented Programming'),
-(4, 'Data Structures & Algorithms');
+(6, 'Intro to Hadith and Seerah');
 
 -- --------------------------------------------------------
 
@@ -66,6 +87,13 @@ CREATE TABLE `followers` (
   `following` int(11) NOT NULL,
   `follower` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `followers`
+--
+
+INSERT INTO `followers` (`follow_id`, `following`, `follower`) VALUES
+(9, 2, 8);
 
 -- --------------------------------------------------------
 
@@ -94,6 +122,18 @@ CREATE TABLE `notes` (
   `notes_subject` int(11) NOT NULL,
   `upload_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `notes`
+--
+
+INSERT INTO `notes` (`notes_id`, `notes_title`, `notes_description`, `notes_file`, `author`, `notes_subject`, `upload_date`) VALUES
+(4, 'Entity', 'this is how entity relationship diagram works', '', 2, 1, '2023-01-14'),
+(5, 'Abc', 'def', '', 2, 1, '2023-01-14'),
+(7, 'night', 'man', '', 2, 1, '2023-01-14'),
+(9, 'file upload testing', 'xyz', 'AB1673816050.pdf', 8, 1, '2023-01-15'),
+(10, 'Testing file upload', 'lorem', 'yahya_bin_zakariyya1673816727.pdf', 2, 6, '2023-01-15'),
+(11, 'testing', 'xyzyyzy', 'yahya_bin_zakariyya1673818025.pdf', 2, 3, '2023-01-15');
 
 -- --------------------------------------------------------
 
@@ -194,7 +234,7 @@ CREATE TABLE `users` (
   `last_name` varchar(30) NOT NULL,
   `gender` varchar(1) NOT NULL,
   `profile_image` text NOT NULL,
-  `user_type` int(11) NOT NULL
+  `user_type` int(11) NOT NULL DEFAULT 2
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -203,7 +243,9 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`user_id`, `user_name`, `user_email`, `user_password`, `first_name`, `last_name`, `gender`, `profile_image`, `user_type`) VALUES
 (1, 'Yahya_Zakariyya', 'yahyabinzakariyya@gmail.com', 'admin', 'Yahya', 'Zakariyya', 'm', '', 1),
-(2, 'yahya_z', '29529@students.riphah.edu.pk', '112233', 'Yahya', '.', 'm', '', 2);
+(2, 'yahya_bin_zakariyya', '29529@students.riphah.edu.pk', '112233', 'Yahya', '.', 'm', '', 2),
+(8, 'AB', 'AB@gmail.com', 'admin', 'A', 'B', 'f', '', 2),
+(10, 'oppo_user', 'mobile@user.com', 'user', 'oppo', 'a5s', 'm', '', 2);
 
 -- --------------------------------------------------------
 
@@ -345,13 +387,13 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `followers`
 --
 ALTER TABLE `followers`
-  MODIFY `follow_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `follow_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `likes`
@@ -363,7 +405,7 @@ ALTER TABLE `likes`
 -- AUTO_INCREMENT for table `notes`
 --
 ALTER TABLE `notes`
-  MODIFY `notes_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `notes_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `queries`
@@ -387,7 +429,7 @@ ALTER TABLE `responses`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `user_type`
@@ -424,7 +466,7 @@ ALTER TABLE `likes`
 -- Constraints for table `notes`
 --
 ALTER TABLE `notes`
-  ADD CONSTRAINT `notes_author` FOREIGN KEY (`author`) REFERENCES `notes` (`notes_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `notes_author` FOREIGN KEY (`author`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `notes_subject` FOREIGN KEY (`notes_subject`) REFERENCES `courses` (`course_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
