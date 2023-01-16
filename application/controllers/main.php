@@ -10,11 +10,13 @@ class Main extends CI_Controller {
 
 	public function login()
 	{
+		$this->load->helper('html');
 		$this->load->view('user/login');
 	}
 
 	public function signup()
 	{
+		$this->load->helper('html');
 		$this->load->view('user/signup');
 	}
 
@@ -26,7 +28,7 @@ class Main extends CI_Controller {
 		}
 		else
 		{
-			echo "button not pressed";
+			redirect('main');
 		}
 	}
 
@@ -42,39 +44,57 @@ class Main extends CI_Controller {
 				{
 					$this->session->set_userdata($key,$value);
 				}
-				header('Location: http://localhost/NSSC/main/');
+				redirect('main');
 			}
 			else
 			{
-				header('Location: http://localhost/NSSC/main/login?invalid');
+				redirect('main/login?invalid');
 			}
 		}
 		else
 		{
-			header('Location: http://localhost/NSSC/main/');
+			redirect('main');
 		}
     }
 
 	public function logout()
     {
         $this->session->sess_destroy();
-		header('Location: http://localhost/NSSC/main/');
-    }
+		redirect('main');
+	}
 
 	public function profile()
 	{
-		$result['count'] = $this->user->profile_data($_SESSION['user_id']);
-		$result['notes'] = $this->user->select_notes($_SESSION['user_id']);
-		$this->load->view('user/profile', $result);
+		if(isset($_SESSION['user_name'])){
+			$result['count'] = $this->user->profile_data($_SESSION['user_id']);
+			$result['notes'] = $this->user->select_notes($_SESSION['user_id']);
+			$this->load->view('user/profile', $result);
+		}else{
+			redirect('main');
+		}
 	}
 
 	public function view_profile($user_id)
 	{
-		$result['count'] = $this->user->profile_data($user_id);
-		$result['notes'] = $this->user->select_notes($user_id);
-		$result['follow'] = $this->user->check_follow($user_id);
-		$result['user_id'] = $user_id;
-		$this->load->view('user/userprofile', $result);
+		if(!empty($this->user->check_user($user_id)))
+		{
+			$data = $this->user->check_user($user_id);
+			$result['user_id'] = $data[0]['user_id'];
+			$result['user_name'] = $data[0]['user_name'];
+			$result['count'] = $this->user->profile_data($result['user_id']);
+			$result['notes'] = $this->user->select_notes($result['user_id']);
+			if(isset($_SESSION['user_name'])){
+				$result['follow'] = $this->user->check_follow($user_id);			
+			}else{
+				$result['follow'] = false;
+			}
+			
+			$this->load->view('user/userprofile', $result);
+		}
+		else
+		{
+			redirect('main');
+		}
 	}
 
 	public function add_notes()
@@ -105,7 +125,7 @@ class Main extends CI_Controller {
 		}
 		else
 		{
-			echo "button not pressed";
+			redirect('main');
 		}
 	}
 
@@ -120,10 +140,6 @@ class Main extends CI_Controller {
 	{
 		$this->user->update_notes($notes_id);
 		redirect('main/profile');
-	}
-	
-	public function upload()
-	{
 	}
 
 	public function search()
@@ -141,20 +157,14 @@ class Main extends CI_Controller {
 
 	public function follow($user_id)
 	{
-		$this->user->follow_unfollow($user_id);
-		redirect('main/view_profile/'.$user_id);
+		if(isset($_SESSION['user_name'])){
+			$this->user->follow_unfollow($user_id);
+			redirect('main/view_profile/'.$user_id);
+		}else{
+			redirect('main/login');
+		}
 	}
 
-	// public function show_file($file_name)
-	// {
-	// 	$this->load->helper('file');
-	// 	$data = read_file('.notes_files/'.$file_name);
-	// 	$this->output->set_content_type('application/pdf');
-	// 	$this->output->set_header('Content-Disposition: inline; filename="'.basename('notes_files/'.$file_name).'"');
-	// 	$this->output->set_output($data)->display();
-	// 	// $this->output->set_content_type(get_mime_by_extension('.notes_files/'.$file_name))->set_output($data)->_display();
-	// 	exit;
-	// }
 	public function show_file($file_name)
 	{
 		$this->load->helper('file');

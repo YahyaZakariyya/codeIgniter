@@ -127,4 +127,16 @@ class User_model extends CI_model {
             $this->db->query($query);
         }
     }
+
+    public function check_user($user_id)
+    {
+        $query = "SELECT user_id,user_name FROM users WHERE user_id='{$user_id}' OR user_name='{$user_id}'";
+        $sql = $this->db->query($query);
+        $result = $sql->result_array();
+        if(!empty($result)){
+            return $result;
+        }else{
+            return Array();
+        }
+    }
 }

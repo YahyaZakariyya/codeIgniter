@@ -142,10 +142,10 @@ class Admin extends CI_Controller {
             redirect('admin/view_notes');
         }elseif($this->input->get('course_id')!==NULL){
             $this->admin->delete_course($this->input->get('course_id'));
-            redirect('view_courses');
+            redirect('admin/view_courses');
         }elseif($this->input->get('id')!==NULL){
             $this->admin->delete_query($this->input->get('id'));
-            redirect('view_queries');
+            redirect('admin/view_queries');
         }
     }
 }
