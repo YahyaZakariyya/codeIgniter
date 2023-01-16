@@ -50,21 +50,16 @@ class User_model extends CI_model {
         $this->db->query($query);
     }
 
-    public function select_notes()
+    public function select_notes($user_id)
     {
-        $query = "SELECT * FROM notes WHERE author={$_SESSION['user_id']}";
+        $query = "SELECT * FROM notes WHERE author={$user_id}";
         $sql = $this->db->query($query);
         $result = $sql->result_array();
         return $result;
     }
 
-    public function profile_data()
+    public function profile_data($user_id)
     {
-        if($this->input->get('profile')!==NULL){
-            $user_id = $this->input->get('profile');
-        }else{
-            $user_id = $_SESSION['user_id'];
-        }
         $following = "SELECT COUNT(*) AS following FROM followers WHERE following={$user_id}";
         $followers = "SELECT COUNT(*) AS followers FROM followers WHERE follower={$user_id}";
         $notes = "SELECT COUNT(*) AS notes FROM notes WHERE author={$user_id}";
@@ -101,5 +96,34 @@ class User_model extends CI_model {
         $sql = $this->db->query($query);
         $result = $sql->result_array();
         return $result;
+    }
+
+    public function check_follow($user_id)
+    {
+        $query = "SELECT * FROM followers WHERE following='{$user_id}' AND follower='{$_SESSION['user_id']}'";
+        $sql = $this->db->query($query);
+        $result = $sql->result_array();
+        if(empty($result)){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    public function follow_unfollow($user_id)
+    {
+        $query = "SELECT * FROM followers WHERE following={$user_id} AND follower={$_SESSION['user_id']}";
+        $sql = $this->db->query($query);
+        $result = $sql->result_array();
+        if(empty($result))
+        {
+            $query = "INSERT INTO followers(following, follower) VALUES ({$user_id},{$_SESSION['user_id']})";
+            $this->db->query($query);
+        }
+        else
+        {
+            $query = "DELETE FROM followers WHERE following={$user_id} AND follower={$_SESSION['user_id']}";
+            $this->db->query($query);
+        }
     }
 }

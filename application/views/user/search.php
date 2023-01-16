@@ -24,7 +24,7 @@
                 <!-- Notes Info -->
                 <div>
                     <span class="col"><i class="fa-sharp fa-solid fa-note-sticky"></i><?php echo $result['notes_subject']; ?></span>
-                    <span class="col"><i class="fa-solid fa-user"></i><a href="<?php echo base_url('main/profile?profile='.$result['user_id']); ?>"><?php echo $result['author']; ?></a></span>
+                    <span class="col"><i class="fa-solid fa-user"></i><a href="<?php echo base_url('main/view_profile/'.$result['user_id']); ?>"><?php echo $result['author']; ?></a></span>
                     <span class="col"><i class="fa-solid fa-calendar-days"></i><?php echo $result['upload_date']; ?></span>
                 </div>
                 <!-- Notes Description -->

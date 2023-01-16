@@ -63,12 +63,18 @@ class Main extends CI_Controller {
 
 	public function profile()
 	{
-		// $result['notes_count'] = $this->user->notes_count();
-		// $result['follower_count'] = $this->user->follower_count();
-		// $result['following_count'] = $this->user->following_count();
-		$result['count'] = $this->user->profile_data();
-		$result['notes'] = $this->user->select_notes();
+		$result['count'] = $this->user->profile_data($_SESSION['user_id']);
+		$result['notes'] = $this->user->select_notes($_SESSION['user_id']);
 		$this->load->view('user/profile', $result);
+	}
+
+	public function view_profile($user_id)
+	{
+		$result['count'] = $this->user->profile_data($user_id);
+		$result['notes'] = $this->user->select_notes($user_id);
+		$result['follow'] = $this->user->check_follow($user_id);
+		$result['user_id'] = $user_id;
+		$this->load->view('user/userprofile', $result);
 	}
 
 	public function add_notes()
@@ -133,4 +139,9 @@ class Main extends CI_Controller {
 		}
 	}
 
+	public function follow($user_id)
+	{
+		$this->user->follow_unfollow($user_id);
+		redirect('main/view_profile/'.$user_id);
+	}
 }
