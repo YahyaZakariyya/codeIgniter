@@ -63,9 +63,10 @@ class Main extends CI_Controller {
 
 	public function profile()
 	{
-		$result['notes_count'] = $this->user->notes_count();
-		$result['follower_count'] = $this->user->follower_count();
-		$result['following_count'] = $this->user->following_count();
+		// $result['notes_count'] = $this->user->notes_count();
+		// $result['follower_count'] = $this->user->follower_count();
+		// $result['following_count'] = $this->user->following_count();
+		$result['count'] = $this->user->profile_data();
 		$result['notes'] = $this->user->select_notes();
 		$this->load->view('user/profile', $result);
 	}
@@ -117,6 +118,19 @@ class Main extends CI_Controller {
 	
 	public function upload()
 	{
+	}
+
+	public function search()
+	{
+		if($this->input->get('search')!==NULL AND $this->input->get('search')!=='')
+		{
+			$result['search'] = $this->user->search_notes();
+			$this->load->view('user/search',$result);
+		}
+		else
+		{
+			redirect('main');
+		}
 	}
 
 }

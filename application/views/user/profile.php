@@ -4,22 +4,22 @@
 <div class="text-center bg-secondary text-light rounded p-5">
     <!-- <img class="rounded-circle col-lg-4 col-md-3 col-5 mt-5 border p-1 border-5 border-light" src="../images/ProfilePicture.jpg" alt="profile picture"> -->
     
-    <h2><?php echo $_SESSION['user_name']; ?></h2><br><br>
+    <h2><?php if(isset($_GET['profile'])){echo $_GET['profile'];}else{echo $_SESSION['user_name'];}; ?></h2><br><br>
     <div class="row">
         <div class="col-4">
             <h5 class="m-0 p-0">Followers</h5>
-            <p><?php echo $follower_count; ?></p>
+            <p><?php echo $count[0]; ?></p>
         </div>
         <div class="col-4">
             <h5 class="m-0 p-0">Following</h5>
-            <p><?php echo $following_count; ?></p>
+            <p><?php echo $count[1]; ?></p>
         </div>
         <div class="col-4">
             <h5 class="m-0 p-0">Notes</h5>
-            <p><?php echo $notes_count; ?></p>
+            <p><?php echo $count[2]; ?></p>
         </div>
     </div>
-    <!-- <button class="btn btn-light rounded-pill col-5">Follow</button> -->
+    <button class="btn btn-light rounded-pill col-5">Follow</button>
     <!-- <button class="btn btn-outline-light rounded-pill col-5">Following</button> -->
     <a class="btn btn-outline-light rounded-pill col-5" href="http://localhost/NSSC/main/add_notes">Add Notes</a>
 
