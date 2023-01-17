@@ -175,7 +175,6 @@ class Main extends CI_Controller {
 			$this->output->set_output($data);
 			exit;
 		} else{
-			// file does not exist
 			// return some error message
 		}
 	}
