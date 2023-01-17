@@ -54,22 +54,22 @@ class User_model extends CI_model {
 
     public function profile_data($user_id)
     {
-        // $following = "SELECT COUNT(*) AS following FROM followers WHERE following={$user_id}";
-        // $followers = "SELECT COUNT(*) AS followers FROM followers WHERE follower={$user_id}";
-        // $notes = "SELECT COUNT(*) AS notes FROM notes WHERE author={$user_id}";
-        // $query1 = $this->db->query($following);
-        // $query2 = $this->db->query($followers);
-        // $query3 = $this->db->query($notes);
-        // $result1 = $query1->result_array();
-        // $result2 = $query2->result_array();
-        // $result3 = $query3->result_array();
-        // $count = Array($result1[0]['following'],$result2[0]['followers'],$result3[0]['notes']);
-        // return $count;
+        $following = "SELECT COUNT(*) AS following FROM followers WHERE following={$user_id}";
+        $followers = "SELECT COUNT(*) AS followers FROM followers WHERE follower={$user_id}";
+        $notes = "SELECT COUNT(*) AS notes FROM notes WHERE author={$user_id}";
+        $query1 = $this->db->query($following);
+        $query2 = $this->db->query($followers);
+        $query3 = $this->db->query($notes);
+        $result1 = $query1->result_array();
+        $result2 = $query2->result_array();
+        $result3 = $query3->result_array();
+        $count = Array($result1[0]['following'],$result2[0]['followers'],$result3[0]['notes']);
+        return $count;
 
-        $query = "CALL example_procedure({$user_id})";
-        $sql = $this->db->query($query);
-        $result = $sql->result_array();
-        print_r($result);
+        // $query = "CALL example_procedure({$user_id})";
+        // $sql = $this->db->query($query);
+        // $result = $sql->result_array();
+        // print_r($result);
     }
 
     public function update_notes($notes_id)

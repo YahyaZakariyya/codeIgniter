@@ -67,8 +67,8 @@ class Main extends CI_Controller {
 	{
 		if(isset($_SESSION['user_name'])){
 			$result['count'] = $this->user->profile_data($_SESSION['user_id']);
-			//$result['notes'] = $this->user->select_notes($_SESSION['user_id']);
-			//$this->load->view('user/profile', $result);
+			$result['notes'] = $this->user->select_notes($_SESSION['user_id']);
+			$this->load->view('user/profile', $result);
 		}else{
 			redirect('main');
 		}
