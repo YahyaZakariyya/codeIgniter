@@ -27,3 +27,25 @@ CREATE PROCEDURE update_notes(IN nt VARCHAR(100),IN nd VARCHAR(500), IN ns INT, 
 BEGIN
 UPDATE notes SET notes_title=nt, notes_description=nd, notes_subject=ns WHERE notes_id=ni;
 END;
+
+CREATE PROCEDURE validate_login(IN un VARCHAR(30),IN up TEXT)
+BEGIN
+SELECT u.user_id, u.user_name, ut.user_type FROM users u JOIN user_type ut ON u.user_type=ut.user_type_id WHERE (u.user_name=un OR u.user_email=un) AND u.user_password=up;
+END
+
+CREATE PROCEDURE select_notes(IN ui INT)
+BEGIN
+SELECT * FROM notes WHERE author=ui;
+END
+
+CREATE PROCEDURE counts(IN ui INT)
+BEGIN
+SELECT COUNT(*) AS following FROM followers WHERE following=ui;
+SELECT COUNT(*) AS followers FROM followers WHERE follower=ui;
+SELECT COUNT(*) AS notes FROM notes WHERE author=ui;
+END
+
+CREATE PROCEDURE example_procedure(IN ui INT)
+BEGIN
+    SELECT COUNT(*) AS following FROM followers WHERE following=ui UNION SELECT COUNT(*) AS followers FROM followers WHERE follower=ui UNION SELECT COUNT(*) AS notes FROM notes WHERE author=ui;
+END
